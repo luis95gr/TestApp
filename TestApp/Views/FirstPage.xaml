@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TestApp.Models"
+             xmlns:vm="clr-namespace:TestApp.ViewModels"
+             x:DataType="vm:FirstPageViewModel"
+             x:Class="TestApp.Views.FirstPage"
+             Title="FirstPage">
+
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <CollectionView ItemsSource="{Binding FruitsCollection}" RemainingItemsThreshold="0" RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Fruit">
+                    <Grid ColumnDefinitions="30*,35*,35*">
+                        <Image Source="dotnet_bot.png" Aspect="AspectFit" HeightRequest="50"/>
+                        <Label Grid.Column="1" FontSize="Medium" Text="{Binding Name}" VerticalOptions="Center"/>
+                        <Label Grid.Column="2" FontSize="Medium" Text="{Binding Description}" VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </RefreshView>
+</ContentPage>

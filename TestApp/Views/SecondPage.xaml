@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestApp.Views.SecondPage"
+             xmlns:dxsch="clr-namespace:DevExpress.Maui.Scheduler;assembly=DevExpress.Maui.Scheduler"
+             xmlns:dxschE="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             xmlns:scheduler="clr-namespace:Syncfusion.Maui.Scheduler;assembly=Syncfusion.Maui.Scheduler"
+             Title="SecondPage">
+
+    <Grid RowDefinitions="100*">
+        <Grid.Resources>
+            <DataTemplate x:Key="monthAppointmentTemplate">
+                <Grid Margin="2,1" ColumnDefinitions="0.1*,0.9*">
+                    <Border StrokeThickness="1" Stroke="{Binding Data.Background}" Background="{Binding Data.Background}" Padding="0" Margin="0" Opacity="0.8">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5, 0, 5, 0" />
+                        </Border.StrokeShape>
+                    </Border>
+                    <Border Grid.Column="1" Background="{Binding Data.Background}" Padding="0" Margin="-1, 0, 0, 0" StrokeThickness="1" Stroke="{Binding Data.Background}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0, 5, 0, 5" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout>
+                            <Label Padding="3, 0, 0, 0" HorizontalTextAlignment="Start" Text="{Binding Data.Subject}" FontSize="10" FontAttributes="Bold" MaxLines="1" TextColor="White" LineBreakMode="WordWrap" HorizontalOptions="Start"  VerticalOptions="Center" />
+                            <!--<Label Padding="3, 0, 0, 0" HorizontalTextAlignment="Start" Text="{Binding Data.Notes}" FontSize="10" FontAttributes="Bold" MaxLines="1" TextColor="White" LineBreakMode="WordWrap" HorizontalOptions="Start"  VerticalOptions="Center" />-->
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+
+        </Grid.Resources>
+
+
+        <scheduler:SfScheduler x:Name="Scheduler" View="Month" AppointmentsSource="{Binding Events}" AllowViewNavigation="True" AllowedViews="Day,Month" >
+            <scheduler:SfScheduler.MonthView>
+                <scheduler:SchedulerMonthView ShowLeadingAndTrailingDates="True" AppointmentDisplayMode="Text" AppointmentTemplate="{StaticResource monthAppointmentTemplate}"/>
+            </scheduler:SfScheduler.MonthView>
+
+            <scheduler:SfScheduler.Behaviors>
+                <mct:EventToCommandBehavior EventName="Tapped" Command="{Binding TappedCommand}" />
+            </scheduler:SfScheduler.Behaviors>
+
+            <scheduler:SfScheduler.AppointmentMapping>
+                <scheduler:SchedulerAppointmentMapping
+                Subject="EventName"
+                StartTime="From"
+                EndTime="To"
+                Location="Location"
+                Background="Background"
+                IsAllDay="IsAllDay"
+                StartTimeZone="StartTimeZone"
+                EndTimeZone="EndTimeZone"
+                Id="Id"
+                Notes="Notes"
+                RecurrenceExceptionDates="RecurrenceExceptions"
+                RecurrenceRule="RecurrenceRule"
+                RecurrenceId="RecurrenceId"/>
+            </scheduler:SfScheduler.AppointmentMapping>
+
+        </scheduler:SfScheduler>
+
+    </Grid>
+
+
+    <!--<dxsch:MonthView>
+        <dxsch:WorkWeekView.DataStorage>
+            <dxsch:SchedulerDataStorage>
+                <dxsch:SchedulerDataStorage.DataSource>
+                    <dxsch:DataSource AppointmentsSource="{Binding MedicalAppointments}">
+                        <dxsch:DataSource.AppointmentMappings>
+                            <dxsch:AppointmentMappings 
+                            Id="Id" 
+                            Start="StartTime" 
+                            End="EndTime" 
+                            Subject="Subject"
+                            LabelId="LabelId"
+                            Location="Location"/>
+                        </dxsch:DataSource.AppointmentMappings>
+                    </dxsch:DataSource>
+                </dxsch:SchedulerDataStorage.DataSource>
+            </dxsch:SchedulerDataStorage>
+        </dxsch:WorkWeekView.DataStorage>
+    </dxsch:MonthView>-->
+
+</ContentPage>

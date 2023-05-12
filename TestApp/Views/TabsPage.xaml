@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TestApp.Views.TabsPage"
+             xmlns:tabs="http://sharpnado.com"
+             xmlns:views="clr-namespace:TestApp.Views"
+             Title="TabsPage"
+             BackgroundColor="White">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BottomTab" TargetType="tabs:BottomTabItem">
+                <Setter Property="SelectedTabColor" Value="Gray" />
+                <Setter Property="UnselectedLabelColor" Value="#00928A" />
+                <Setter Property="LabelSize" Value="36" />
+                <Setter Property="FontFamily" Value="OpenSansExtraBold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid Margin="16,0" RowDefinitions="120,*,95">
+
+        <tabs:ViewSwitcher x:Name="Switcher" Margin="0" Animate="True" Grid.RowSpan="3" SelectedIndex="{Binding SelectedViewModelIndex, Mode=TwoWay}">
+            <tabs:DelayedView x:TypeArguments="views:Tab1" Animate="True"/>
+            <tabs:DelayedView x:TypeArguments="views:Tab2" Animate="True"/>
+
+        </tabs:ViewSwitcher>
+
+        <tabs:TabHostView Grid.Row="2" Orientation="Horizontal" BackgroundColor="White" CornerRadius="30" IsSegmented="True" TabType="Fixed" SelectedIndex="{Binding Source={x:Reference Switcher}, Path=SelectedIndex, Mode=TwoWay}">
+            <tabs:TabHostView.Tabs>
+                <tabs:BottomTabItem Label="Home" IconImageSource="home_icon.png" SelectedTabColor="Blue"/>
+                <tabs:BottomTabItem Label="Documentos" IconImageSource="user_icon.png"/>
+            </tabs:TabHostView.Tabs>
+        </tabs:TabHostView>
+
+    </Grid>
+</ContentPage>
